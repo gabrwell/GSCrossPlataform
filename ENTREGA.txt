@@ -2,9 +2,9 @@
 Disciplina: Cross-Platform Application Development
 Desafio: Territory Predictive Insights
 
-Integrante 1: [Nome Completo] | RM: [XXXXXX]
-Integrante 2: [Nome Completo] | RM: [XXXXXX]
-Integrante 3: [Nome Completo] | RM: [XXXXXX]
+Integrante 1: Pedro Henrique dos Santos Cardoso | RM: 563268
+Integrante 2: Gabriel Gibin Leoncio | RM: 565462
+Integrante 3: Rai Augusto Ribeiro | RM: 562870
 
-GitHub: https://github.com/...
+GitHub: https://github.com/gabrwell/GSCrossPlataform
 Vídeo: https://...

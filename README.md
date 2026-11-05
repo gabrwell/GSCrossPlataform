@@ -18,7 +18,9 @@ Vazamentos, calor extremo, ar poluído, alagamentos e filas em postos de saúde 
 
 | Nome completo | RM |
 |---|---|
-| [Nome Completo] | [RM] |
+| Pedro Henrique dos Santos Cardoso | 563268 |
+| Gabriel Gibin Leoncio | 565462 |
+| Rai Augusto Ribeiro | 562870 |
 
 ## Demonstração visual
 
@@ -158,8 +160,8 @@ A dependência segue uma direção: `features → state → data → domain`. Co
 1. Clone o repositório e entre na pasta:
 
    ```bash
-   git clone https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git
-   cd SEU-REPOSITORIO
+   git clone https://github.com/gabrwell/GSCrossPlataform.git
+   cd GSCrossPlataform
    ```
 
 2. Instale as dependências:
