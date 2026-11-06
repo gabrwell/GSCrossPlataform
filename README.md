@@ -204,7 +204,9 @@ O APK instalável fica disponível na aba **Releases** do repositório.
 
 ## Vídeo
 
-[Assista à demonstração](COLE-AQUI-O-LINK-DO-VIDEO)
+[![Demonstração do Território Vivo](https://img.youtube.com/vi/OnErILoTXdk/hqdefault.jpg)](https://youtu.be/OnErILoTXdk)
+
+[Assista à demonstração no YouTube](https://youtu.be/OnErILoTXdk) (2 min 52 s)
 
 ## Licença
 
