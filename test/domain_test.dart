@@ -30,22 +30,21 @@ IndicatorSeries seriesOf(
 }
 
 TerritorySnapshot snapshotOf(List<IndicatorSeries> series) => TerritorySnapshot(
-      territoryId: 'se',
-      climateFromCache: false,
-      climateUnavailable: false,
-      series: {for (final s in series) s.indicatorId: s},
-    );
+  territoryId: 'se',
+  climateFromCache: false,
+  climateUnavailable: false,
+  series: {for (final s in series) s.indicatorId: s},
+);
 
 List<TerritoryAlert> run(
   List<IndicatorSeries> series, {
   List<CitizenReport> reports = const [],
-}) =>
-    const AlertEngine().generate(
-      snapshot: snapshotOf(series),
-      thresholds: defaultThresholds(),
-      reports: reports,
-      now: now,
-    );
+}) => const AlertEngine().generate(
+  snapshot: snapshotOf(series),
+  thresholds: defaultThresholds(),
+  reports: reports,
+  now: now,
+);
 
 void main() {
   group('Forecaster', () {
@@ -59,8 +58,10 @@ void main() {
       expect(forecast.points.first.value, closeTo(140, 0.5));
       expect(forecast.mape, lessThan(0.01));
       expect(forecast.isReliable, isTrue);
-      expect(ConfidenceLevel.fromScore(forecast.baseConfidence),
-          ConfidenceLevel.alta);
+      expect(
+        ConfidenceLevel.fromScore(forecast.baseConfidence),
+        ConfidenceLevel.alta,
+      );
     });
 
     test('histórico curto torna a previsão não confiável', () {
@@ -137,13 +138,13 @@ void main() {
 
     test('relatos recorrentes geram alerta somente a partir de 3', () {
       CitizenReport report(int n) => CitizenReport(
-            id: '$n',
-            territoryId: 'se',
-            category: ReportCategory.alagamento,
-            description: 'Rua alagada perto da praça',
-            urgency: 3,
-            day: DateTime(2026, 11, 4),
-          );
+        id: '$n',
+        territoryId: 'se',
+        category: ReportCategory.alagamento,
+        description: 'Rua alagada perto da praça',
+        urgency: 3,
+        day: DateTime(2026, 11, 4),
+      );
       expect(run(const [], reports: [report(1), report(2)]), isEmpty);
       final alerts = run(const [], reports: [report(1), report(2), report(3)]);
       expect(alerts.single.kind, AlertKind.cidadao);

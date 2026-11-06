@@ -67,7 +67,8 @@ class HomeScreen extends StatelessWidget {
               const MessageView(
                 icon: Icons.task_alt,
                 title: 'Nenhum alerta agora',
-                message: 'Os indicadores estão dentro dos limiares configurados.',
+                message:
+                    'Os indicadores estão dentro dos limiares configurados.',
               )
             else
               for (final alert in alerts.take(3)) AlertCard(alert: alert),
@@ -87,12 +88,13 @@ class _Headline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final critical =
-        alerts.where((a) => a.severity == AlertSeverity.critico).length;
+    final critical = alerts
+        .where((a) => a.severity == AlertSeverity.critico)
+        .length;
     final message = alerts.isEmpty
         ? 'Sem sinais de risco no momento.'
         : '${alerts.length} ${alerts.length == 1 ? 'sinal' : 'sinais'} para '
-            'análise${critical > 0 ? ', $critical crítico${critical > 1 ? 's' : ''}' : ''}.';
+              'análise${critical > 0 ? ', $critical crítico${critical > 1 ? 's' : ''}' : ''}.';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

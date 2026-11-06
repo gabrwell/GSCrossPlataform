@@ -23,8 +23,10 @@ class Forecaster {
     final reasons = <String>[];
 
     if (window.length < minTrainingDays) {
-      reasons.add('Histórico curto: ${window.length} dias, quando o mínimo são '
-          '$minTrainingDays.');
+      reasons.add(
+        'Histórico curto: ${window.length} dias, quando o mínimo são '
+        '$minTrainingDays.',
+      );
     }
     if (history.isNotEmpty) {
       final age = _daysBetween(history.last.date, now);
@@ -56,8 +58,10 @@ class Forecaster {
 
     final mape = backtestMape(window);
     if (mape != null && mape > maxReliableMape) {
-      reasons.add('Erro alto no teste com dados passados: '
-          '${(mape * 100).toStringAsFixed(0)}%.');
+      reasons.add(
+        'Erro alto no teste com dados passados: '
+        '${(mape * 100).toStringAsFixed(0)}%.',
+      );
     }
 
     final last = window.last.date;
@@ -67,12 +71,14 @@ class Forecaster {
       final value = fit.predict(window.length - 1 + h, date.weekday);
       final margin =
           1.96 * fit.residualStd * sqrt(1 + h / max(window.length, 1));
-      points.add(ForecastPoint(
-        date: date,
-        value: value,
-        lower: value - margin,
-        upper: value + margin,
-      ));
+      points.add(
+        ForecastPoint(
+          date: date,
+          value: value,
+          lower: value - margin,
+          upper: value + margin,
+        ),
+      );
     }
 
     // Erro de 0% resulta em 0,95; erro de 25% ou mais fica em baixa confiança.
@@ -81,7 +87,8 @@ class Forecaster {
 
     return Forecast(
       points: points,
-      method: 'Regressão linear com ajuste por dia da semana '
+      method:
+          'Regressão linear com ajuste por dia da semana '
           '(${window.length} dias de treino)',
       baseConfidence: confidence.clamp(0.1, 0.95).toDouble(),
       trend: trend,
@@ -104,12 +111,14 @@ class Forecaster {
     var h = 1;
     for (final p in series.externalForecast.take(horizonDays)) {
       final margin = 0.5 * std * sqrt(h.toDouble());
-      points.add(ForecastPoint(
-        date: p.date,
-        value: p.value,
-        lower: p.value - margin,
-        upper: p.value + margin,
-      ));
+      points.add(
+        ForecastPoint(
+          date: p.date,
+          value: p.value,
+          lower: p.value - margin,
+          upper: p.value + margin,
+        ),
+      );
       h++;
     }
     return Forecast(
@@ -167,13 +176,12 @@ class Forecaster {
       sums[weekday] = (sums[weekday] ?? 0) + residual;
       counts[weekday] = (counts[weekday] ?? 0) + 1;
     }
-    final seasonal = {
-      for (final k in sums.keys) k: sums[k]! / counts[k]!,
-    };
+    final seasonal = {for (final k in sums.keys) k: sums[k]! / counts[k]!};
 
     var squared = 0.0;
     for (var i = 0; i < n; i++) {
-      final predicted = intercept + slope * i + seasonal[points[i].date.weekday]!;
+      final predicted =
+          intercept + slope * i + seasonal[points[i].date.weekday]!;
       squared += pow(points[i].value - predicted, 2);
     }
     final dof = max(n - 3, 1);
@@ -183,7 +191,8 @@ class Forecaster {
   TrendDirection _trendOf(double slope, List<DataPoint> window) {
     if (window.isEmpty) return TrendDirection.stable;
     final mean =
-        window.map((e) => e.value.abs()).reduce((a, b) => a + b) / window.length;
+        window.map((e) => e.value.abs()).reduce((a, b) => a + b) /
+        window.length;
     // Variação menor que 0,2% da média ao dia é tratada como estabilidade.
     final tolerance = max(mean * 0.002, 1e-6);
     if (slope > tolerance) return TrendDirection.rising;
@@ -198,9 +207,11 @@ class Forecaster {
     return sqrt(sum / (values.length - 1));
   }
 
-  int _daysBetween(DateTime a, DateTime b) => DateTime(b.year, b.month, b.day)
-      .difference(DateTime(a.year, a.month, a.day))
-      .inDays;
+  int _daysBetween(DateTime a, DateTime b) => DateTime(
+    b.year,
+    b.month,
+    b.day,
+  ).difference(DateTime(a.year, a.month, a.day)).inDays;
 }
 
 class _Fit {

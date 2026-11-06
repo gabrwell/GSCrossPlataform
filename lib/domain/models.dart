@@ -99,17 +99,14 @@ class DataPoint {
   const DataPoint(this.date, this.value);
 
   factory DataPoint.fromJson(Map<String, dynamic> json) => DataPoint(
-        DateTime.parse(json['d'] as String),
-        (json['v'] as num).toDouble(),
-      );
+    DateTime.parse(json['d'] as String),
+    (json['v'] as num).toDouble(),
+  );
 
   final DateTime date;
   final double value;
 
-  Map<String, dynamic> toJson() => {
-        'd': date.toIso8601String(),
-        'v': value,
-      };
+  Map<String, dynamic> toJson() => {'d': date.toIso8601String(), 'v': value};
 }
 
 /// Série de um indicador em um território.
@@ -144,11 +141,11 @@ class IndicatorSeries {
   double? get latest => history.isEmpty ? null : history.last.value;
 
   Map<String, dynamic> toJson() => {
-        'id': indicatorId,
-        'at': fetchedAt.toIso8601String(),
-        'h': history.map((e) => e.toJson()).toList(),
-        'f': externalForecast.map((e) => e.toJson()).toList(),
-      };
+    'id': indicatorId,
+    'at': fetchedAt.toIso8601String(),
+    'h': history.map((e) => e.toJson()).toList(),
+    'f': externalForecast.map((e) => e.toJson()).toList(),
+  };
 }
 
 /// Conjunto de dados de um território em um momento.
@@ -333,11 +330,11 @@ class AlertDecision {
   });
 
   factory AlertDecision.fromJson(Map<String, dynamic> json) => AlertDecision(
-        alertId: json['id'] as String,
-        status: DecisionStatus.values.byName(json['status'] as String),
-        note: json['note'] as String? ?? '',
-        decidedAt: DateTime.parse(json['at'] as String),
-      );
+    alertId: json['id'] as String,
+    status: DecisionStatus.values.byName(json['status'] as String),
+    note: json['note'] as String? ?? '',
+    decidedAt: DateTime.parse(json['at'] as String),
+  );
 
   final String alertId;
   final DecisionStatus status;
@@ -345,11 +342,11 @@ class AlertDecision {
   final DateTime decidedAt;
 
   Map<String, dynamic> toJson() => {
-        'id': alertId,
-        'status': status.name,
-        'note': note,
-        'at': decidedAt.toIso8601String(),
-      };
+    'id': alertId,
+    'status': status.name,
+    'note': note,
+    'at': decidedAt.toIso8601String(),
+  };
 }
 
 enum ReportCategory {
@@ -377,13 +374,13 @@ class CitizenReport {
   });
 
   factory CitizenReport.fromJson(Map<String, dynamic> json) => CitizenReport(
-        id: json['id'] as String,
-        territoryId: json['territory'] as String,
-        category: ReportCategory.values.byName(json['category'] as String),
-        description: json['description'] as String,
-        urgency: json['urgency'] as int,
-        day: DateTime.parse(json['day'] as String),
-      );
+    id: json['id'] as String,
+    territoryId: json['territory'] as String,
+    category: ReportCategory.values.byName(json['category'] as String),
+    description: json['description'] as String,
+    urgency: json['urgency'] as int,
+    day: DateTime.parse(json['day'] as String),
+  );
 
   final String id;
   final String territoryId;
@@ -395,11 +392,11 @@ class CitizenReport {
   final DateTime day;
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'territory': territoryId,
-        'category': category.name,
-        'description': description,
-        'urgency': urgency,
-        'day': day.toIso8601String(),
-      };
+    'id': id,
+    'territory': territoryId,
+    'category': category.name,
+    'description': description,
+    'urgency': urgency,
+    'day': day.toIso8601String(),
+  };
 }

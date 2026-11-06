@@ -38,11 +38,11 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
     setState(() => _saving = true);
     final messenger = ScaffoldMessenger.of(context);
     await context.read<ReportsController>().add(
-          territoryId: _territoryId,
-          category: _category!,
-          description: _description.text,
-          urgency: _urgency,
-        );
+      territoryId: _territoryId,
+      category: _category!,
+      description: _description.text,
+      urgency: _urgency,
+    );
     if (!mounted) return;
     messenger.showSnackBar(
       const SnackBar(content: Text('Relato salvo de forma anônima. Obrigado!')),
@@ -58,8 +58,10 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
         key: _formKey,
         child: PageBody(
           children: [
-            const Text('Não pedimos nome nem contato. A data é guardada sem '
-                'horário para dificultar a identificação.'),
+            const Text(
+              'Não pedimos nome nem contato. A data é guardada sem '
+              'horário para dificultar a identificação.',
+            ),
             DropdownButtonFormField<String>(
               initialValue: _territoryId,
               isExpanded: true,
@@ -75,7 +77,9 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
             DropdownButtonFormField<ReportCategory>(
               initialValue: _category,
               isExpanded: true,
-              decoration: const InputDecoration(labelText: 'Tipo de ocorrência'),
+              decoration: const InputDecoration(
+                labelText: 'Tipo de ocorrência',
+              ),
               validator: (value) =>
                   value == null ? 'Escolha o tipo de ocorrência.' : null,
               items: [
@@ -92,7 +96,8 @@ class _ReportFormScreenState extends State<ReportFormScreen> {
               validator: Validators.reportDescription,
               decoration: const InputDecoration(
                 labelText: 'O que está acontecendo?',
-                helperText: 'Não inclua nomes, telefones, e-mails ou documentos.',
+                helperText:
+                    'Não inclua nomes, telefones, e-mails ou documentos.',
                 alignLabelWithHint: true,
               ),
             ),

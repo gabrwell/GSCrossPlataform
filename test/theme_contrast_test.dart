@@ -27,16 +27,24 @@ void main() {
         semantic.info,
         semantic.positive,
       ]) {
-        expect(contrast(pair.background, pair.foreground),
-            greaterThanOrEqualTo(4.5));
+        expect(
+          contrast(pair.background, pair.foreground),
+          greaterThanOrEqualTo(4.5),
+        );
       }
       final scheme = theme.colorScheme;
-      expect(contrast(scheme.surface, scheme.onSurface),
-          greaterThanOrEqualTo(4.5));
-      expect(contrast(scheme.surface, scheme.onSurfaceVariant),
-          greaterThanOrEqualTo(4.5));
-      expect(contrast(scheme.primary, scheme.onPrimary),
-          greaterThanOrEqualTo(4.5));
+      expect(
+        contrast(scheme.surface, scheme.onSurface),
+        greaterThanOrEqualTo(4.5),
+      );
+      expect(
+        contrast(scheme.surface, scheme.onSurfaceVariant),
+        greaterThanOrEqualTo(4.5),
+      );
+      expect(
+        contrast(scheme.primary, scheme.onPrimary),
+        greaterThanOrEqualTo(4.5),
+      );
     });
   });
 }

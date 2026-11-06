@@ -33,7 +33,9 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pending = context.select<AlertsController, int>((c) => c.pendingCount);
+    final pending = context.select<AlertsController, int>(
+      (c) => c.pendingCount,
+    );
 
     Widget icon(int index, IconData data) {
       if (index != 2 || pending == 0) return Icon(data);
@@ -91,8 +93,8 @@ class SettingsAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => IconButton(
-        tooltip: 'Abrir ajustes',
-        icon: const Icon(Icons.settings_outlined),
-        onPressed: () => context.pushNamed(Routes.settings),
-      );
+    tooltip: 'Abrir ajustes',
+    icon: const Icon(Icons.settings_outlined),
+    onPressed: () => context.pushNamed(Routes.settings),
+  );
 }

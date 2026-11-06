@@ -21,18 +21,19 @@ class OpenMeteoService {
 
   Future<List<IndicatorSeries>> fetch(Territory t, DateTime now) async {
     final results = await Future.wait([
-      _get('https://api.open-meteo.com/v1/forecast'
-          '?latitude=${t.latitude}&longitude=${t.longitude}'
-          '&daily=temperature_2m_max,precipitation_sum'
-          '&past_days=30&forecast_days=7&timezone=$_tz'),
-      _get('https://air-quality-api.open-meteo.com/v1/air-quality'
-          '?latitude=${t.latitude}&longitude=${t.longitude}'
-          '&hourly=us_aqi&past_days=30&forecast_days=5&timezone=$_tz'),
+      _get(
+        'https://api.open-meteo.com/v1/forecast'
+        '?latitude=${t.latitude}&longitude=${t.longitude}'
+        '&daily=temperature_2m_max,precipitation_sum'
+        '&past_days=30&forecast_days=7&timezone=$_tz',
+      ),
+      _get(
+        'https://air-quality-api.open-meteo.com/v1/air-quality'
+        '?latitude=${t.latitude}&longitude=${t.longitude}'
+        '&hourly=us_aqi&past_days=30&forecast_days=5&timezone=$_tz',
+      ),
     ]);
-    return [
-      ...parseWeather(results[0], now),
-      parseAirQuality(results[1], now),
-    ];
+    return [...parseWeather(results[0], now), parseAirQuality(results[1], now)];
   }
 
   Future<Map<String, dynamic>> _get(String url) async {
@@ -44,7 +45,8 @@ class OpenMeteoService {
     }
     if (response.statusCode != 200) {
       throw ClimateUnavailable(
-          'O serviço de clima respondeu com erro ${response.statusCode}.');
+        'O serviço de clima respondeu com erro ${response.statusCode}.',
+      );
     }
     return jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
   }

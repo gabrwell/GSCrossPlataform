@@ -21,8 +21,8 @@ class MapScreen extends StatelessWidget {
 
   ColorPair _pair(BuildContext context, AlertSeverity? severity) =>
       severity == null
-          ? context.semantic.positive
-          : context.semantic.severity(severity);
+      ? context.semantic.positive
+      : context.semantic.severity(severity);
 
   @override
   Widget build(BuildContext context) {
@@ -124,10 +124,7 @@ class _Pin extends StatelessWidget {
           decoration: BoxDecoration(
             color: pair.background,
             shape: BoxShape.circle,
-            border: Border.all(
-              color: pair.foreground,
-              width: selected ? 4 : 2,
-            ),
+            border: Border.all(color: pair.foreground, width: selected ? 4 : 2),
           ),
           child: Text(
             '$count',

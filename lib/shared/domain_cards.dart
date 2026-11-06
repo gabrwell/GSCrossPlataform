@@ -13,30 +13,30 @@ import 'common_widgets.dart';
 import 'indicator_chart.dart';
 
 IconData indicatorIcon(String id) => switch (id) {
-      'agua' => Icons.water_drop_outlined,
-      'energia' => Icons.bolt_outlined,
-      'residuos' => Icons.delete_outline,
-      'reservatorio' => Icons.waves,
-      'temperatura' => Icons.thermostat,
-      'chuva' => Icons.umbrella_outlined,
-      'ar' => Icons.air,
-      'atendimentos' => Icons.local_hospital_outlined,
-      'zeladoria' => Icons.construction,
-      'espera' => Icons.hourglass_bottom,
-      _ => Icons.insights,
-    };
+  'agua' => Icons.water_drop_outlined,
+  'energia' => Icons.bolt_outlined,
+  'residuos' => Icons.delete_outline,
+  'reservatorio' => Icons.waves,
+  'temperatura' => Icons.thermostat,
+  'chuva' => Icons.umbrella_outlined,
+  'ar' => Icons.air,
+  'atendimentos' => Icons.local_hospital_outlined,
+  'zeladoria' => Icons.construction,
+  'espera' => Icons.hourglass_bottom,
+  _ => Icons.insights,
+};
 
 IconData dashboardIcon(DashboardKind kind) => switch (kind) {
-      DashboardKind.recursos => Icons.water_drop_outlined,
-      DashboardKind.clima => Icons.wb_sunny_outlined,
-      DashboardKind.servicos => Icons.health_and_safety_outlined,
-    };
+  DashboardKind.recursos => Icons.water_drop_outlined,
+  DashboardKind.clima => Icons.wb_sunny_outlined,
+  DashboardKind.servicos => Icons.health_and_safety_outlined,
+};
 
 IconData trendIcon(TrendDirection trend) => switch (trend) {
-      TrendDirection.rising => Icons.trending_up,
-      TrendDirection.stable => Icons.trending_flat,
-      TrendDirection.falling => Icons.trending_down,
-    };
+  TrendDirection.rising => Icons.trending_up,
+  TrendDirection.stable => Icons.trending_flat,
+  TrendDirection.falling => Icons.trending_down,
+};
 
 /// Cartão de indicador: valor atual, tendência, situação e minigráfico.
 class IndicatorCard extends StatelessWidget {
@@ -61,12 +61,15 @@ class IndicatorCard extends StatelessWidget {
     final recent = series.history.length > 30
         ? series.history.sublist(series.history.length - 30)
         : series.history;
-    final valueText = latest == null ? 'Sem dado' : formatValue(latest, definition);
+    final valueText = latest == null
+        ? 'Sem dado'
+        : formatValue(latest, definition);
 
     return Card(
       child: Semantics(
         button: true,
-        label: '${definition.name}: $valueText, tendência '
+        label:
+            '${definition.name}: $valueText, tendência '
             '${forecast.trend.label}. '
             '${breached ? 'Além do limiar. ' : 'Dentro do limiar. '}'
             'Abrir detalhes.',
@@ -83,12 +86,16 @@ class IndicatorCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Icon(indicatorIcon(definition.id),
-                        color: context.colors.primary),
+                    Icon(
+                      indicatorIcon(definition.id),
+                      color: context.colors.primary,
+                    ),
                     const SizedBox(width: Gap.sm),
                     Expanded(
-                      child: Text(definition.name,
-                          style: context.text.titleSmall),
+                      child: Text(
+                        definition.name,
+                        style: context.text.titleSmall,
+                      ),
                     ),
                     const Icon(Icons.chevron_right),
                   ],
@@ -146,7 +153,8 @@ class AlertCard extends StatelessWidget {
     return Card(
       child: Semantics(
         button: true,
-        label: 'Alerta ${alert.severity.label}: ${alert.title}. '
+        label:
+            'Alerta ${alert.severity.label}: ${alert.title}. '
             'Confiança ${alert.confidenceLevel.label}. ${status.label}. '
             'Abrir justificativa.',
         excludeSemantics: true,
@@ -196,9 +204,12 @@ class AlertCard extends StatelessWidget {
                 const SizedBox(height: Gap.sm),
                 ConfidenceMeter(alert.confidence),
                 const SizedBox(height: Gap.sm),
-                Text(status.label,
-                    style: context.text.labelMedium
-                        ?.copyWith(color: context.colors.onSurfaceVariant)),
+                Text(
+                  status.label,
+                  style: context.text.labelMedium?.copyWith(
+                    color: context.colors.onSurfaceVariant,
+                  ),
+                ),
               ],
             ),
           ),

@@ -21,14 +21,14 @@ class SyntheticDataService {
   }
 
   List<IndicatorSeries> generate(Territory t, DateTime now) => [
-        _series(t, now, 'agua', 158 * t.waterFactor, 0.035, 0.03, 12),
-        _series(t, now, 'energia', 5.4 * t.energyFactor, 0.05, 0.03, 8),
-        _series(t, now, 'residuos', 1.14 * t.wasteFactor, 0.07, 0.03, 15),
-        _series(t, now, 'reservatorio', t.reservoirBase, 0.0, 0.006, 14),
-        _series(t, now, 'atendimentos', 31 * t.serviceFactor, 0.12, 0.04, 8),
-        _series(t, now, 'zeladoria', 6.2 * t.serviceFactor, 0.14, 0.06, 10),
-        _series(t, now, 'espera', 10 * t.serviceFactor, 0.0, 0.015, 12),
-      ];
+    _series(t, now, 'agua', 158 * t.waterFactor, 0.035, 0.03, 12),
+    _series(t, now, 'energia', 5.4 * t.energyFactor, 0.05, 0.03, 8),
+    _series(t, now, 'residuos', 1.14 * t.wasteFactor, 0.07, 0.03, 15),
+    _series(t, now, 'reservatorio', t.reservoirBase, 0.0, 0.006, 14),
+    _series(t, now, 'atendimentos', 31 * t.serviceFactor, 0.12, 0.04, 8),
+    _series(t, now, 'zeladoria', 6.2 * t.serviceFactor, 0.14, 0.06, 10),
+    _series(t, now, 'espera', 10 * t.serviceFactor, 0.0, 0.015, 12),
+  ];
 
   IndicatorSeries _series(
     Territory t,

@@ -8,7 +8,7 @@ import '../domain/models.dart';
 /// Relatos de ocorrência, guardados somente no aparelho.
 class ReportsController extends ChangeNotifier {
   ReportsController(this._store, {DateTime Function()? clock})
-      : _clock = clock ?? DateTime.now {
+    : _clock = clock ?? DateTime.now {
     _load();
   }
 
@@ -40,8 +40,10 @@ class ReportsController extends ChangeNotifier {
   }) async {
     final now = _clock();
     // Identificador aleatório, sem relação com pessoa ou aparelho.
-    final id = List.generate(12, (_) => _random.nextInt(16).toRadixString(16))
-        .join();
+    final id = List.generate(
+      12,
+      (_) => _random.nextInt(16).toRadixString(16),
+    ).join();
     _reports = [
       CitizenReport(
         id: id,

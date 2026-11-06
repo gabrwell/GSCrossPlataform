@@ -27,7 +27,8 @@ class AlertEngine {
     for (final definition in kIndicators) {
       final series = snapshot.series[definition.id];
       if (series == null || series.history.isEmpty) continue;
-      final threshold = thresholds[definition.id] ?? definition.defaultThreshold;
+      final threshold =
+          thresholds[definition.id] ?? definition.defaultThreshold;
       final forecast = forecaster.forecast(series, now);
 
       final thresholdAlert = _thresholdAlert(
@@ -91,7 +92,8 @@ class AlertEngine {
         kind: AlertKind.observado,
         severity: severityFor(excess, reliable: reliable),
         title: '${d.name} além do limiar em $territory',
-        summary: 'O valor de ${formatDay(latest.date)} já está '
+        summary:
+            'O valor de ${formatDay(latest.date)} já está '
             '${_side(d)} do limiar configurado.',
         evidence: [
           'Último valor: ${formatValue(latest.value, d)} '
@@ -122,7 +124,8 @@ class AlertEngine {
         kind: AlertKind.previsao,
         severity: severityFor(excess, reliable: reliable),
         title: '${d.name} pode passar do limiar em $territory',
-        summary: 'A previsão indica que o limiar pode ser cruzado em '
+        summary:
+            'A previsão indica que o limiar pode ser cruzado em '
             '${formatDay(point.date)}, daqui a $lead '
             '${lead == 1 ? 'dia' : 'dias'}.',
         evidence: [
@@ -164,10 +167,8 @@ class AlertEngine {
         .map((e) => e.value)
         .toList();
     final mean = baseline.reduce((a, b) => a + b) / baseline.length;
-    final variance = baseline.fold<double>(
-          0,
-          (acc, v) => acc + pow(v - mean, 2),
-        ) /
+    final variance =
+        baseline.fold<double>(0, (acc, v) => acc + pow(v - mean, 2)) /
         (baseline.length - 1);
     final std = sqrt(variance);
     if (std < 1e-6) return null;
@@ -180,9 +181,11 @@ class AlertEngine {
       indicatorId: d.id,
       kind: AlertKind.anomalia,
       severity: AlertSeverity.atencao,
-      title: 'Valor incomum de ${d.name.toLowerCase()} em '
+      title:
+          'Valor incomum de ${d.name.toLowerCase()} em '
           '${territoryById(territoryId).name}',
-      summary: 'O valor de ${formatDay(latest.date)} foge do padrão recente '
+      summary:
+          'O valor de ${formatDay(latest.date)} foge do padrão recente '
           'do bairro.',
       evidence: [
         'Último valor: ${formatValue(latest.value, d)}.',
@@ -196,7 +199,8 @@ class AlertEngine {
         'Uma anomalia pode ser erro nos dados, e não um problema real.',
         ..._limitations(d, forecast),
       ],
-      humanAction: 'Conferir o dado na fonte antes de qualquer '
+      humanAction:
+          'Conferir o dado na fonte antes de qualquer '
           'encaminhamento. ${d.humanAction}',
       leadDays: 0,
       reliable: forecast.isReliable,
@@ -210,9 +214,10 @@ class AlertEngine {
     DateTime now,
   ) {
     final today = DateTime(now.year, now.month, now.day);
-    final recent = reports.where((r) =>
-        r.territoryId == territoryId &&
-        today.difference(r.day).inDays <= 7);
+    final recent = reports.where(
+      (r) =>
+          r.territoryId == territoryId && today.difference(r.day).inDays <= 7,
+    );
     final byCategory = <ReportCategory, List<CitizenReport>>{};
     for (final report in recent) {
       byCategory.putIfAbsent(report.category, () => []).add(report);
@@ -222,53 +227,61 @@ class AlertEngine {
     byCategory.forEach((category, items) {
       if (items.length < clusterMinReports) return;
       final highUrgency = items.where((r) => r.urgency == 3).length;
-      alerts.add(TerritoryAlert(
-        id: _id(territoryId, 'relatos-${category.name}', AlertKind.cidadao,
-            today),
-        territoryId: territoryId,
-        indicatorId: null,
-        kind: AlertKind.cidadao,
-        severity:
-            highUrgency >= 2 ? AlertSeverity.atencao : AlertSeverity.informativo,
-        title: 'Relatos recorrentes: ${category.label.toLowerCase()}',
-        summary: '${items.length} relatos da mesma categoria em '
-            '${territoryById(territoryId).name} nos últimos 7 dias.',
-        evidence: [
-          '${items.length} relatos anônimos nos últimos 7 dias '
-              '(o alerta começa em $clusterMinReports).',
-          '$highUrgency marcados como urgência alta.',
-        ],
-        confidence: min(0.3 + items.length * 0.05, 0.55),
-        limitations: const [
-          'Relatos não são verificados e podem se referir ao mesmo fato.',
-          'Quem tem menos acesso digital aparece menos: a ausência de relatos '
-              'não significa ausência de problema.',
-        ],
-        humanAction: 'Verificar os relatos em campo antes de encaminhar.',
-        leadDays: 0,
-        reliable: false,
-        date: today,
-      ));
+      alerts.add(
+        TerritoryAlert(
+          id: _id(
+            territoryId,
+            'relatos-${category.name}',
+            AlertKind.cidadao,
+            today,
+          ),
+          territoryId: territoryId,
+          indicatorId: null,
+          kind: AlertKind.cidadao,
+          severity: highUrgency >= 2
+              ? AlertSeverity.atencao
+              : AlertSeverity.informativo,
+          title: 'Relatos recorrentes: ${category.label.toLowerCase()}',
+          summary:
+              '${items.length} relatos da mesma categoria em '
+              '${territoryById(territoryId).name} nos últimos 7 dias.',
+          evidence: [
+            '${items.length} relatos anônimos nos últimos 7 dias '
+                '(o alerta começa em $clusterMinReports).',
+            '$highUrgency marcados como urgência alta.',
+          ],
+          confidence: min(0.3 + items.length * 0.05, 0.55),
+          limitations: const [
+            'Relatos não são verificados e podem se referir ao mesmo fato.',
+            'Quem tem menos acesso digital aparece menos: a ausência de relatos '
+                'não significa ausência de problema.',
+          ],
+          humanAction: 'Verificar os relatos em campo antes de encaminhar.',
+          leadDays: 0,
+          reliable: false,
+          date: today,
+        ),
+      );
     });
     return alerts;
   }
 
   List<String> _limitations(IndicatorDefinition d, Forecast forecast) => [
-        ...forecast.unreliableReasons,
-        if (d.origin == DataOrigin.sintetico)
-          'Dados sintéticos, gerados para demonstração: não representam '
-              'medições reais do bairro.'
-        else
-          'Os valores são estimativas de modelos para uma área de cerca de '
-              '10 km, não leituras de sensores no bairro: confira em estações '
-              'oficiais.',
-        if (forecast.mape != null)
-          'O modelo projeta padrões recentes e não antecipa eventos novos, '
-              'como obras, greves ou rompimentos.'
-        else
-          'Eventos extremos e localizados são difíceis de prever, sobretudo '
-              'além de 3 dias.',
-      ];
+    ...forecast.unreliableReasons,
+    if (d.origin == DataOrigin.sintetico)
+      'Dados sintéticos, gerados para demonstração: não representam '
+          'medições reais do bairro.'
+    else
+      'Os valores são estimativas de modelos para uma área de cerca de '
+          '10 km, não leituras de sensores no bairro: confira em estações '
+          'oficiais.',
+    if (forecast.mape != null)
+      'O modelo projeta padrões recentes e não antecipa eventos novos, '
+          'como obras, greves ou rompimentos.'
+    else
+      'Eventos extremos e localizados são difíceis de prever, sobretudo '
+          'além de 3 dias.',
+  ];
 
   double _excess(double value, double threshold) {
     if (threshold.abs() < 1e-6) return 0;

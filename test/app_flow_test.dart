@@ -165,7 +165,9 @@ void main() {
     await tester.tap(submit);
     await tester.pumpAndSettle();
 
-    expect(find.text('Rua alagada perto da escola depois da chuva'),
-        findsOneWidget);
+    expect(
+      find.text('Rua alagada perto da escola depois da chuva'),
+      findsOneWidget,
+    );
   });
 }

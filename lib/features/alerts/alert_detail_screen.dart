@@ -26,7 +26,8 @@ class AlertDetailScreen extends StatelessWidget {
               child: MessageView(
                 icon: Icons.history,
                 title: 'Este alerta não está mais ativo',
-                message: 'Os dados ou os limiares mudaram desde que ele foi '
+                message:
+                    'Os dados ou os limiares mudaram desde que ele foi '
                     'gerado. Sua decisão, se houver, continua salva.',
               ),
             )
@@ -50,8 +51,10 @@ class AlertDetailScreen extends StatelessWidget {
                       ConfidenceMeter(alert.confidence),
                       if (!alert.reliable) ...[
                         const SizedBox(height: Gap.sm),
-                        const Text('Sinal de baixa confiabilidade: confirme em '
-                            'outras fontes antes de tirar conclusões.'),
+                        const Text(
+                          'Sinal de baixa confiabilidade: confirme em '
+                          'outras fontes antes de tirar conclusões.',
+                        ),
                       ],
                     ],
                   ),
@@ -102,10 +105,7 @@ class _Header extends StatelessWidget {
           runSpacing: Gap.xs,
           children: [
             SeverityBadge(alert.severity),
-            StatusPill(
-              label: alert.kind.label,
-              colors: context.semantic.info,
-            ),
+            StatusPill(label: alert.kind.label, colors: context.semantic.info),
           ],
         ),
         const SizedBox(height: Gap.sm),
@@ -177,8 +177,9 @@ class _ExplanationCardState extends State<_ExplanationCard> {
 
   Future<void> _explain() async {
     setState(() => _loading = true);
-    final result =
-        await context.read<ExplanationService>().explain(widget.alert);
+    final result = await context.read<ExplanationService>().explain(
+      widget.alert,
+    );
     if (!mounted) return;
     setState(() {
       _loading = false;
@@ -194,8 +195,9 @@ class _ExplanationCardState extends State<_ExplanationCard> {
       title: 'Em linguagem simples',
       icon: Icons.record_voice_over_outlined,
       child: AnimatedSize(
-        duration:
-            reduceMotion ? Duration.zero : const Duration(milliseconds: 250),
+        duration: reduceMotion
+            ? Duration.zero
+            : const Duration(milliseconds: 250),
         alignment: Alignment.topLeft,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -214,10 +216,11 @@ class _ExplanationCardState extends State<_ExplanationCard> {
               Text(
                 explanation.generatedByAi
                     ? 'Texto gerado por IA generativa a partir dos dados do '
-                        'alerta. Pode conter imprecisões.'
+                          'alerta. Pode conter imprecisões.'
                     : 'Texto automático montado a partir dos dados do alerta.',
-                style: context.text.bodySmall
-                    ?.copyWith(color: context.colors.onSurfaceVariant),
+                style: context.text.bodySmall?.copyWith(
+                  color: context.colors.onSurfaceVariant,
+                ),
               ),
             ],
           ],
@@ -259,9 +262,11 @@ class _DecisionFormState extends State<_DecisionForm> {
   Future<void> _save() async {
     if (!_formKey.currentState!.validate()) return;
     final messenger = ScaffoldMessenger.of(context);
-    await context
-        .read<AlertsController>()
-        .decide(widget.alert.id, _status, _note.text);
+    await context.read<AlertsController>().decide(
+      widget.alert.id,
+      _status,
+      _note.text,
+    );
     messenger.showSnackBar(
       SnackBar(content: Text('Registrado: ${_status.label}.')),
     );
@@ -283,7 +288,9 @@ class _DecisionFormState extends State<_DecisionForm> {
             DropdownButtonFormField<DecisionStatus>(
               initialValue: _status,
               isExpanded: true,
-              decoration: const InputDecoration(labelText: 'Situação do alerta'),
+              decoration: const InputDecoration(
+                labelText: 'Situação do alerta',
+              ),
               items: [
                 for (final status in DecisionStatus.values)
                   DropdownMenuItem(value: status, child: Text(status.label)),

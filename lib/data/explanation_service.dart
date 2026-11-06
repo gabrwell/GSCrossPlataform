@@ -26,7 +26,9 @@ class ExplanationService {
   bool get aiEnabled => _apiKey.isNotEmpty;
 
   Future<AlertExplanation> explain(TerritoryAlert alert) async {
-    if (!aiEnabled) return AlertExplanation(template(alert), generatedByAi: false);
+    if (!aiEnabled) {
+      return AlertExplanation(template(alert), generatedByAi: false);
+    }
     try {
       final text = await _askClaude(alert);
       if (text != null) return AlertExplanation(text, generatedByAi: true);
@@ -52,7 +54,8 @@ class ExplanationService {
             'max_tokens': 2000,
             'output_config': {'effort': 'low'},
             'fallbacks': 'default',
-            'system': 'Você explica alertas de um painel público para moradores '
+            'system':
+                'Você explica alertas de um painel público para moradores '
                 'de um bairro. Escreva em português do Brasil, em até 4 frases '
                 'curtas e sem termos técnicos. Use apenas os dados recebidos, '
                 'mantenha a incerteza visível e lembre que uma pessoa responsável '
@@ -77,7 +80,8 @@ class ExplanationService {
     return text.isEmpty ? null : text;
   }
 
-  String _prompt(TerritoryAlert alert) => 'Alerta: ${alert.title}\n'
+  String _prompt(TerritoryAlert alert) =>
+      'Alerta: ${alert.title}\n'
       'Resumo: ${alert.summary}\n'
       'Severidade: ${alert.severity.label}\n'
       'Confiança: ${alert.confidenceLevel.label}\n'
@@ -87,13 +91,14 @@ class ExplanationService {
   static String template(TerritoryAlert alert) {
     final certainty = switch (alert.confidenceLevel) {
       ConfidenceLevel.alta => 'Os dados dão boa segurança a esse sinal',
-      ConfidenceLevel.media => 'Esse sinal é razoável, mas pode não se confirmar',
+      ConfidenceLevel.media =>
+        'Esse sinal é razoável, mas pode não se confirmar',
       ConfidenceLevel.baixa => 'Esse sinal é fraco e pode estar errado',
     };
     final timing = alert.leadDays == 0
         ? 'Isso já aparece nos dados mais recentes.'
         : 'Isso pode acontecer em cerca de ${alert.leadDays} '
-            '${alert.leadDays == 1 ? 'dia' : 'dias'}.';
+              '${alert.leadDays == 1 ? 'dia' : 'dias'}.';
     return '${alert.summary} $timing $certainty. O app não toma nenhuma '
         'providência sozinho: quem decide é uma pessoa responsável.';
   }

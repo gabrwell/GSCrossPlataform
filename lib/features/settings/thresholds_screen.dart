@@ -67,8 +67,10 @@ class _ThresholdsScreenState extends State<ThresholdsScreen> {
     final settings = context.read<SettingsController>();
     await settings.resetThresholds();
     for (final i in _visible) {
-      _fields[i.id]!.text =
-          formatNumber(i.defaultThreshold, decimals: i.decimals);
+      _fields[i.id]!.text = formatNumber(
+        i.defaultThreshold,
+        decimals: i.decimals,
+      );
     }
   }
 
@@ -80,8 +82,10 @@ class _ThresholdsScreenState extends State<ThresholdsScreen> {
         key: _formKey,
         child: PageBody(
           children: [
-            const Text('O limiar é o valor a partir do qual o app sinaliza um '
-                'alerta. Ele não dispara nenhuma ação automática.'),
+            const Text(
+              'O limiar é o valor a partir do qual o app sinaliza um '
+              'alerta. Ele não dispara nenhuma ação automática.',
+            ),
             for (final kind in DashboardKind.values)
               if (_visible.any((i) => i.dashboard == kind))
                 Column(
@@ -110,7 +114,10 @@ class _ThresholdsScreenState extends State<ThresholdsScreen> {
                       ),
                   ],
                 ),
-            FilledButton(onPressed: _save, child: const Text('Salvar limiares')),
+            FilledButton(
+              onPressed: _save,
+              child: const Text('Salvar limiares'),
+            ),
             OutlinedButton(
               onPressed: _reset,
               child: const Text('Restaurar valores padrão'),

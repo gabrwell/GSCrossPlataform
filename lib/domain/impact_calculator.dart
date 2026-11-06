@@ -61,7 +61,7 @@ class ImpactCalculator {
     final averageLead = forecastAlerts.isEmpty
         ? 0.0
         : forecastAlerts.map((a) => a.leadDays).reduce((a, b) => a + b) /
-            forecastAlerts.length;
+              forecastAlerts.length;
 
     var waterAtRisk = 0.0;
     final errors = <double>[];
@@ -71,8 +71,7 @@ class ImpactCalculator {
         if (forecast.mape != null) errors.add(forecast.mape!);
         if (series.indicatorId == 'agua') {
           final definition = indicatorById('agua');
-          final threshold =
-              thresholds['agua'] ?? definition.defaultThreshold;
+          final threshold = thresholds['agua'] ?? definition.defaultThreshold;
           for (final point in forecast.points) {
             if (point.value > threshold) {
               waterAtRisk += (point.value - threshold) * territory.population;

@@ -55,43 +55,53 @@ GoRouter buildRouter(SettingsController settings) {
       StatefulShellRoute.indexedStack(
         builder: (_, _, shell) => AppShell(shell: shell),
         branches: [
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/inicio',
-              name: Routes.home,
-              builder: (_, _) => const HomeScreen(),
-            ),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/paineis',
-              name: Routes.dashboards,
-              builder: (_, state) => DashboardsScreen(
-                initialTab: state.uri.queryParameters['aba'],
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/inicio',
+                name: Routes.home,
+                builder: (_, _) => const HomeScreen(),
               ),
-            ),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/alertas',
-              name: Routes.alerts,
-              builder: (_, _) => const AlertsScreen(),
-            ),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/mapa',
-              name: Routes.map,
-              builder: (_, _) => const MapScreen(),
-            ),
-          ]),
-          StatefulShellBranch(routes: [
-            GoRoute(
-              path: '/cidadao',
-              name: Routes.reports,
-              builder: (_, _) => const ReportsScreen(),
-            ),
-          ]),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/paineis',
+                name: Routes.dashboards,
+                builder: (_, state) => DashboardsScreen(
+                  initialTab: state.uri.queryParameters['aba'],
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/alertas',
+                name: Routes.alerts,
+                builder: (_, _) => const AlertsScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/mapa',
+                name: Routes.map,
+                builder: (_, _) => const MapScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/cidadao',
+                name: Routes.reports,
+                builder: (_, _) => const ReportsScreen(),
+              ),
+            ],
+          ),
         ],
       ),
       // Telas de detalhe ficam sobre o menu, com passagem de parâmetros na rota.
@@ -107,9 +117,8 @@ GoRouter buildRouter(SettingsController settings) {
         path: '/alerta/:alertId',
         name: Routes.alertDetail,
         parentNavigatorKey: rootKey,
-        builder: (_, state) => AlertDetailScreen(
-          alertId: state.pathParameters['alertId']!,
-        ),
+        builder: (_, state) =>
+            AlertDetailScreen(alertId: state.pathParameters['alertId']!),
       ),
       GoRoute(
         path: '/novo-relato',

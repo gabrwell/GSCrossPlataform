@@ -25,8 +25,10 @@ class IndicatorChart extends StatelessWidget {
   final double threshold;
   final double height;
 
-  List<DateTime> get _dates =>
-      [...history.map((e) => e.date), ...forecast.map((e) => e.date)];
+  List<DateTime> get _dates => [
+    ...history.map((e) => e.date),
+    ...forecast.map((e) => e.date),
+  ];
 
   String get _description {
     if (history.isEmpty) return 'Gráfico sem dados de ${definition.name}.';
@@ -39,8 +41,10 @@ class IndicatorChart extends StatelessWidget {
       'Limiar ${formatValue(threshold, definition)}.',
     );
     if (forecast.isNotEmpty) {
-      buffer.write(' Previsão para ${formatDay(forecast.last.date)}: '
-          '${formatValue(forecast.last.value, definition)}.');
+      buffer.write(
+        ' Previsão para ${formatDay(forecast.last.date)}: '
+        '${formatValue(forecast.last.value, definition)}.',
+      );
     }
     return buffer.toString();
   }
@@ -80,8 +84,9 @@ class IndicatorChart extends StatelessWidget {
 
   FlTitlesData _titles(BuildContext context) {
     final dates = _dates;
-    final style = context.text.labelSmall
-        ?.copyWith(color: context.colors.onSurfaceVariant);
+    final style = context.text.labelSmall?.copyWith(
+      color: context.colors.onSurfaceVariant,
+    );
     final interval = max(1, (dates.length / 5).ceil()).toDouble();
     return FlTitlesData(
       topTitles: const AxisTitles(),
@@ -127,23 +132,21 @@ class IndicatorChart extends StatelessWidget {
   }
 
   FlGridData _grid(BuildContext context) => FlGridData(
-        drawVerticalLine: false,
-        getDrawingHorizontalLine: (_) => FlLine(
-          color: context.colors.outlineVariant,
-          strokeWidth: 0.5,
-        ),
-      );
+    drawVerticalLine: false,
+    getDrawingHorizontalLine: (_) =>
+        FlLine(color: context.colors.outlineVariant, strokeWidth: 0.5),
+  );
 
   ExtraLinesData _thresholdLine(BuildContext context) => ExtraLinesData(
-        horizontalLines: [
-          HorizontalLine(
-            y: threshold,
-            color: context.semantic.threshold,
-            strokeWidth: 1.5,
-            dashArray: [6, 4],
-          ),
-        ],
-      );
+    horizontalLines: [
+      HorizontalLine(
+        y: threshold,
+        color: context.semantic.threshold,
+        strokeWidth: 1.5,
+        dashArray: [6, 4],
+      ),
+    ],
+  );
 
   Widget _lines(BuildContext context) {
     final semantic = context.semantic;
@@ -173,11 +176,11 @@ class IndicatorChart extends StatelessWidget {
     ];
 
     LineChartBarData invisible(List<FlSpot> spots) => LineChartBarData(
-          spots: spots,
-          color: Colors.transparent,
-          barWidth: 0,
-          dotData: const FlDotData(show: false),
-        );
+      spots: spots,
+      color: Colors.transparent,
+      barWidth: 0,
+      dotData: const FlDotData(show: false),
+    );
 
     final hasForecast = forecast.isNotEmpty && history.isNotEmpty;
     final bars = <LineChartBarData>[
@@ -253,14 +256,19 @@ class IndicatorChart extends StatelessWidget {
     final width = count > 40 ? 3.0 : (count > 20 ? 6.0 : 12.0);
 
     BarChartGroupData group(int x, double value, Color color) =>
-        BarChartGroupData(x: x, barRods: [
-          BarChartRodData(
-            toY: value,
-            color: color,
-            width: width,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(3)),
-          ),
-        ]);
+        BarChartGroupData(
+          x: x,
+          barRods: [
+            BarChartRodData(
+              toY: value,
+              color: color,
+              width: width,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(3),
+              ),
+            ),
+          ],
+        );
 
     return BarChart(
       BarChartData(
@@ -314,13 +322,13 @@ class _Legend extends StatelessWidget {
   }
 
   Widget _item(BuildContext context, Color color, String label) => Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(width: 16, height: 4, color: color),
-          const SizedBox(width: Gap.xs),
-          Text(label, style: context.text.labelSmall),
-        ],
-      );
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Container(width: 16, height: 4, color: color),
+      const SizedBox(width: Gap.xs),
+      Text(label, style: context.text.labelSmall),
+    ],
+  );
 }
 
 /// Minigráfico de tendência para os cartões. É decorativo: o cartão já informa

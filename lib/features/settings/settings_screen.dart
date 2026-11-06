@@ -17,8 +17,10 @@ class SettingsScreen extends StatelessWidget {
       context: context,
       builder: (dialog) => AlertDialog(
         title: const Text('Apagar seus relatos?'),
-        content: const Text('Todos os relatos salvos neste aparelho serão '
-            'apagados e o consentimento será retirado. Isso não pode ser desfeito.'),
+        content: const Text(
+          'Todos os relatos salvos neste aparelho serão '
+          'apagados e o consentimento será retirado. Isso não pode ser desfeito.',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(dialog, false),
@@ -37,7 +39,9 @@ class SettingsScreen extends StatelessWidget {
     await context.read<ReportsController>().deleteAll();
     await settings.setConsent(false);
     messenger.showSnackBar(
-      const SnackBar(content: Text('Relatos apagados e consentimento retirado.')),
+      const SnackBar(
+        content: Text('Relatos apagados e consentimento retirado.'),
+      ),
     );
   }
 
@@ -70,7 +74,9 @@ class SettingsScreen extends StatelessWidget {
                 ListTile(
                   leading: Icon(Icons.tune, color: context.colors.primary),
                   title: const Text('Limiares de alerta'),
-                  subtitle: const Text('Defina quando cada indicador gera alerta'),
+                  subtitle: const Text(
+                    'Defina quando cada indicador gera alerta',
+                  ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.pushNamed(Routes.thresholds),
                 ),
@@ -99,8 +105,10 @@ class SettingsScreen extends StatelessWidget {
                 ),
                 const Divider(height: 1),
                 ListTile(
-                  leading: Icon(Icons.delete_forever_outlined,
-                      color: context.colors.error),
+                  leading: Icon(
+                    Icons.delete_forever_outlined,
+                    color: context.colors.error,
+                  ),
                   title: const Text('Apagar meus relatos'),
                   subtitle: const Text('Remove os relatos deste aparelho'),
                   onTap: () => _deleteData(context),
@@ -113,18 +121,24 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 ListTile(
-                  leading: Icon(Icons.menu_book_outlined,
-                      color: context.colors.primary),
+                  leading: Icon(
+                    Icons.menu_book_outlined,
+                    color: context.colors.primary,
+                  ),
                   title: const Text('Metodologia e limitações'),
-                  subtitle: const Text('Fontes, métricas, vieses e quando '
-                      'não confiar nas previsões'),
+                  subtitle: const Text(
+                    'Fontes, métricas, vieses e quando '
+                    'não confiar nas previsões',
+                  ),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.pushNamed(Routes.methodology),
                 ),
                 const Divider(height: 1),
                 ListTile(
-                  leading:
-                      Icon(Icons.diversity_3, color: context.colors.primary),
+                  leading: Icon(
+                    Icons.diversity_3,
+                    color: context.colors.primary,
+                  ),
                   title: const Text('Benefício social'),
                   trailing: const Icon(Icons.chevron_right),
                   onTap: () => context.pushNamed(Routes.impact),

@@ -33,9 +33,11 @@ class ImpactScreen extends StatelessWidget {
       appBar: AppBar(title: Text('Impacto · ${territory.selected.name}')),
       body: PageBody(
         children: [
-          const Text('Previsão boa só importa se chega a tempo de ajudar alguém. '
-              'Estes números ligam a qualidade da análise ao benefício para '
-              'as pessoas.'),
+          const Text(
+            'Previsão boa só importa se chega a tempo de ajudar alguém. '
+            'Estes números ligam a qualidade da análise ao benefício para '
+            'as pessoas.',
+          ),
           ResponsiveGrid(
             minItemWidth: 240,
             children: [
@@ -47,7 +49,8 @@ class ImpactScreen extends StatelessWidget {
               ),
               StatTile(
                 icon: Icons.schedule,
-                value: '${formatNumber(impact.averageLeadDays, decimals: 1)} dias',
+                value:
+                    '${formatNumber(impact.averageLeadDays, decimals: 1)} dias',
                 label: 'de antecedência média dos alertas de previsão',
                 note: 'Tempo a mais para as equipes se organizarem.',
               ),
@@ -61,7 +64,8 @@ class ImpactScreen extends StatelessWidget {
                 icon: Icons.how_to_reg_outlined,
                 value: formatPercent(impact.reviewRate),
                 label: 'dos alertas revisados por pessoas',
-                note: '${impact.alertsReviewed} de ${impact.alertsTotal} alertas.',
+                note:
+                    '${impact.alertsReviewed} de ${impact.alertsTotal} alertas.',
               ),
               StatTile(
                 icon: Icons.verified_outlined,
@@ -83,11 +87,16 @@ class ImpactScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Como ler estes números', style: context.text.titleSmall),
+                  Text(
+                    'Como ler estes números',
+                    style: context.text.titleSmall,
+                  ),
                   const SizedBox(height: Gap.sm),
-                  const Text('São estimativas de potencial, não resultados '
-                      'comprovados. Medir o benefício real exigiria acompanhar, '
-                      'com as equipes locais, o que mudou depois de cada alerta.'),
+                  const Text(
+                    'São estimativas de potencial, não resultados '
+                    'comprovados. Medir o benefício real exigiria acompanhar, '
+                    'com as equipes locais, o que mudou depois de cada alerta.',
+                  ),
                 ],
               ),
             ),

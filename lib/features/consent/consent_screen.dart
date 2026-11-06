@@ -26,15 +26,20 @@ class _ConsentScreenState extends State<ConsentScreen> {
           children: [
             const SizedBox(height: Gap.md),
             ExcludeSemantics(
-              child: Icon(Icons.hub_outlined,
-                  size: 56, color: context.colors.primary),
+              child: Icon(
+                Icons.hub_outlined,
+                size: 56,
+                color: context.colors.primary,
+              ),
             ),
             Semantics(
               header: true,
               child: Text('Território Vivo', style: context.text.headlineSmall),
             ),
-            const Text('Indicadores, previsões e alertas para antecipar '
-                'problemas do bairro, sempre com a decisão nas mãos de pessoas.'),
+            const Text(
+              'Indicadores, previsões e alertas para antecipar '
+              'problemas do bairro, sempre com a decisão nas mãos de pessoas.',
+            ),
             const HumanDecisionNotice(),
             const SectionTitle('Como tratamos seus dados'),
             const BulletList(

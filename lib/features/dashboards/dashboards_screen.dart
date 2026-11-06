@@ -132,8 +132,10 @@ class _FeaturedChart extends StatelessWidget {
               runSpacing: Gap.xs,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                Text('${definition.name} (${definition.unit})',
-                    style: context.text.titleSmall),
+                Text(
+                  '${definition.name} (${definition.unit})',
+                  style: context.text.titleSmall,
+                ),
                 OriginTag(definition.origin),
               ],
             ),
@@ -190,7 +192,8 @@ class _ReservoirGauge extends StatelessWidget {
     final pair = low ? context.semantic.critical : context.semantic.positive;
     return Card(
       child: Semantics(
-        label: 'Reservatório local em ${formatNumber(latest)} por cento. '
+        label:
+            'Reservatório local em ${formatNumber(latest)} por cento. '
             'Limiar mínimo de ${formatNumber(limit)} por cento.',
         excludeSemantics: true,
         child: Padding(
@@ -210,8 +213,10 @@ class _ReservoirGauge extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: Gap.sm),
-              Text('${formatNumber(latest)}% agora · mínimo configurado: '
-                  '${formatNumber(limit)}%'),
+              Text(
+                '${formatNumber(latest)}% agora · mínimo configurado: '
+                '${formatNumber(limit)}%',
+              ),
             ],
           ),
         ),
@@ -234,7 +239,8 @@ class _ClimateTab extends StatelessWidget {
           MessageView(
             icon: Icons.cloud_off,
             title: 'Clima indisponível',
-            message: 'A fonte não respondeu e ainda não há dados salvos neste '
+            message:
+                'A fonte não respondeu e ainda não há dados salvos neste '
                 'aparelho. Conecte-se à internet e tente de novo.',
             actionLabel: 'Tentar de novo',
             onAction: territory.loadAll,
@@ -288,7 +294,8 @@ class _WeekStrip extends StatelessWidget {
                 width: 88 * scale,
                 child: Card(
                   child: Semantics(
-                    label: '${formatDay(day.date)}: máxima de '
+                    label:
+                        '${formatDay(day.date)}: máxima de '
                         '${formatNumber(day.value)} graus e '
                         '${formatNumber(mm)} milímetros de chuva.',
                     excludeSemantics: true,
@@ -297,16 +304,22 @@ class _WeekStrip extends StatelessWidget {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(formatDay(day.date),
-                              style: context.text.labelMedium),
+                          Text(
+                            formatDay(day.date),
+                            style: context.text.labelMedium,
+                          ),
                           Icon(
                             mm >= 5 ? Icons.umbrella : Icons.wb_sunny_outlined,
                             color: context.colors.primary,
                           ),
-                          Text('${formatNumber(day.value)}°',
-                              style: context.text.titleMedium),
-                          Text('${formatNumber(mm)} mm',
-                              style: context.text.labelSmall),
+                          Text(
+                            '${formatNumber(day.value)}°',
+                            style: context.text.titleMedium,
+                          ),
+                          Text(
+                            '${formatNumber(mm)} mm',
+                            style: context.text.labelSmall,
+                          ),
                         ],
                       ),
                     ),
@@ -366,8 +379,10 @@ class _EquityComparison extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Espera por consulta entre bairros',
-                style: context.text.titleSmall),
+            Text(
+              'Espera por consulta entre bairros',
+              style: context.text.titleSmall,
+            ),
             const SizedBox(height: Gap.sm),
             for (final (t, value) in rows)
               Semantics(

@@ -57,8 +57,10 @@ const List<Territory> kTerritories = [
   ),
 ];
 
-Territory territoryById(String id) =>
-    kTerritories.firstWhere((t) => t.id == id, orElse: () => kTerritories.first);
+Territory territoryById(String id) => kTerritories.firstWhere(
+  (t) => t.id == id,
+  orElse: () => kTerritories.first,
+);
 
 const List<IndicatorDefinition> kIndicators = [
   // Recursos (sintéticos)
@@ -138,7 +140,8 @@ const List<IndicatorDefinition> kIndicators = [
     unit: '°C',
     dashboard: DashboardKind.clima,
     origin: DataOrigin.real,
-    description: 'Temperatura máxima diária. Calor extremo afeta idosos, '
+    description:
+        'Temperatura máxima diária. Calor extremo afeta idosos, '
         'crianças e pessoas em moradias precárias.',
     defaultThreshold: 33,
     minThreshold: 20,
@@ -171,7 +174,8 @@ const List<IndicatorDefinition> kIndicators = [
     unit: 'IQA',
     dashboard: DashboardKind.clima,
     origin: DataOrigin.real,
-    description: 'Índice de qualidade do ar (escala US AQI, média diária). '
+    description:
+        'Índice de qualidade do ar (escala US AQI, média diária). '
         'Acima de 100 já há risco para grupos sensíveis.',
     defaultThreshold: 100,
     minThreshold: 20,
@@ -189,7 +193,8 @@ const List<IndicatorDefinition> kIndicators = [
     unit: 'atend./10 mil hab',
     dashboard: DashboardKind.servicos,
     origin: DataOrigin.sintetico,
-    description: 'Atendimentos diários em Unidades Básicas de Saúde para cada '
+    description:
+        'Atendimentos diários em Unidades Básicas de Saúde para cada '
         '10 mil habitantes.',
     defaultThreshold: 40,
     minThreshold: 10,
@@ -204,7 +209,8 @@ const List<IndicatorDefinition> kIndicators = [
     unit: 'pedidos/10 mil hab',
     dashboard: DashboardKind.servicos,
     origin: DataOrigin.sintetico,
-    description: 'Pedidos diários de reparo urbano para cada 10 mil habitantes.',
+    description:
+        'Pedidos diários de reparo urbano para cada 10 mil habitantes.',
     defaultThreshold: 8.5,
     minThreshold: 2,
     maxThreshold: 30,
@@ -232,5 +238,6 @@ IndicatorDefinition indicatorById(String id) =>
 List<IndicatorDefinition> indicatorsFor(DashboardKind kind) =>
     kIndicators.where((i) => i.dashboard == kind).toList();
 
-Map<String, double> defaultThresholds() =>
-    {for (final i in kIndicators) i.id: i.defaultThreshold};
+Map<String, double> defaultThresholds() => {
+  for (final i in kIndicators) i.id: i.defaultThreshold,
+};

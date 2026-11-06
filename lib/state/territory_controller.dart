@@ -32,7 +32,6 @@ class TerritoryController extends ChangeNotifier {
   Territory get selected => territoryById(_selectedId);
   TerritorySnapshot? get snapshot => _snapshots[_selectedId];
   TerritorySnapshot? snapshotOf(String id) => _snapshots[id];
-  Iterable<TerritorySnapshot> get snapshots => _snapshots.values;
   LoadStatus get status => _status;
   String? get errorMessage => _errorMessage;
   bool get isLoading => _status == LoadStatus.loading;

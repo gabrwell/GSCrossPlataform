@@ -42,16 +42,16 @@ class SemanticColors extends ThemeExtension<SemanticColors> {
   final Color threshold;
 
   ColorPair severity(AlertSeverity value) => switch (value) {
-        AlertSeverity.critico => critical,
-        AlertSeverity.atencao => attention,
-        AlertSeverity.informativo => info,
-      };
+    AlertSeverity.critico => critical,
+    AlertSeverity.atencao => attention,
+    AlertSeverity.informativo => info,
+  };
 
   ColorPair confidence(ConfidenceLevel value) => switch (value) {
-        ConfidenceLevel.alta => positive,
-        ConfidenceLevel.media => attention,
-        ConfidenceLevel.baixa => critical,
-      };
+    ConfidenceLevel.alta => positive,
+    ConfidenceLevel.media => attention,
+    ConfidenceLevel.baixa => critical,
+  };
 
   @override
   SemanticColors copyWith() => this;
@@ -102,52 +102,52 @@ class AppTheme {
   );
 
   static ThemeData get light => _build(
-        ColorScheme.fromSeed(
-          seedColor: const Color(0xFF0B5D57),
-          brightness: Brightness.light,
-          primary: const Color(0xFF0B5D57),
-          secondary: const Color(0xFFA8431A),
-          surface: const Color(0xFFF7F5F0),
-          onSurface: const Color(0xFF1C2321),
-          onSurfaceVariant: const Color(0xFF47524F),
-          surfaceContainerLow: const Color(0xFFFFFFFF),
-        ),
-        lightSemantic,
-      );
+    ColorScheme.fromSeed(
+      seedColor: const Color(0xFF0B5D57),
+      brightness: Brightness.light,
+      primary: const Color(0xFF0B5D57),
+      secondary: const Color(0xFFA8431A),
+      surface: const Color(0xFFF7F5F0),
+      onSurface: const Color(0xFF1C2321),
+      onSurfaceVariant: const Color(0xFF47524F),
+      surfaceContainerLow: const Color(0xFFFFFFFF),
+    ),
+    lightSemantic,
+  );
 
   static ThemeData get dark => _build(
-        ColorScheme.fromSeed(
-          seedColor: const Color(0xFF0B5D57),
-          brightness: Brightness.dark,
-          primary: const Color(0xFF6FD3C7),
-          secondary: const Color(0xFFFFB38F),
-          surface: const Color(0xFF111715),
-          onSurface: const Color(0xFFE7ECEA),
-          onSurfaceVariant: const Color(0xFFBCC7C3),
-          surfaceContainerLow: const Color(0xFF1B2320),
-        ),
-        darkSemantic,
-      );
+    ColorScheme.fromSeed(
+      seedColor: const Color(0xFF0B5D57),
+      brightness: Brightness.dark,
+      primary: const Color(0xFF6FD3C7),
+      secondary: const Color(0xFFFFB38F),
+      surface: const Color(0xFF111715),
+      onSurface: const Color(0xFFE7ECEA),
+      onSurfaceVariant: const Color(0xFFBCC7C3),
+      surfaceContainerLow: const Color(0xFF1B2320),
+    ),
+    darkSemantic,
+  );
 
   static ThemeData get highContrast => _build(
-        const ColorScheme.highContrastDark(
-          primary: Color(0xFFFFE600),
-          onPrimary: Color(0xFF000000),
-          secondary: Color(0xFF8FE3FF),
-          onSecondary: Color(0xFF000000),
-          surface: Color(0xFF000000),
-          onSurface: Color(0xFFFFFFFF),
-          error: Color(0xFFFF9A8F),
-          onError: Color(0xFF000000),
-        ).copyWith(
-          onSurfaceVariant: const Color(0xFFFFFFFF),
-          surfaceContainerLow: const Color(0xFF000000),
-          outline: const Color(0xFFFFFFFF),
-          outlineVariant: const Color(0xFFFFFFFF),
-        ),
-        contrastSemantic,
-        outlinedCards: true,
-      );
+    const ColorScheme.highContrastDark(
+      primary: Color(0xFFFFE600),
+      onPrimary: Color(0xFF000000),
+      secondary: Color(0xFF8FE3FF),
+      onSecondary: Color(0xFF000000),
+      surface: Color(0xFF000000),
+      onSurface: Color(0xFFFFFFFF),
+      error: Color(0xFFFF9A8F),
+      onError: Color(0xFF000000),
+    ).copyWith(
+      onSurfaceVariant: const Color(0xFFFFFFFF),
+      surfaceContainerLow: const Color(0xFF000000),
+      outline: const Color(0xFFFFFFFF),
+      outlineVariant: const Color(0xFFFFFFFF),
+    ),
+    contrastSemantic,
+    outlinedCards: true,
+  );
 
   static ThemeData _build(
     ColorScheme scheme,
@@ -163,14 +163,19 @@ class AppTheme {
     );
     final base = ThemeData(useMaterial3: true, colorScheme: scheme);
     final text = base.textTheme.copyWith(
-      headlineSmall: base.textTheme.headlineSmall
-          ?.copyWith(fontWeight: FontWeight.w800, letterSpacing: -0.3),
-      titleLarge:
-          base.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700),
-      titleMedium:
-          base.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w700),
-      labelLarge:
-          base.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700),
+      headlineSmall: base.textTheme.headlineSmall?.copyWith(
+        fontWeight: FontWeight.w800,
+        letterSpacing: -0.3,
+      ),
+      titleLarge: base.textTheme.titleLarge?.copyWith(
+        fontWeight: FontWeight.w700,
+      ),
+      titleMedium: base.textTheme.titleMedium?.copyWith(
+        fontWeight: FontWeight.w700,
+      ),
+      labelLarge: base.textTheme.labelLarge?.copyWith(
+        fontWeight: FontWeight.w700,
+      ),
     );
     return base.copyWith(
       textTheme: text,
@@ -202,7 +207,9 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(minimumSize: const Size(48, 48)),
       ),
-      snackBarTheme: const SnackBarThemeData(behavior: SnackBarBehavior.floating),
+      snackBarTheme: const SnackBarThemeData(
+        behavior: SnackBarBehavior.floating,
+      ),
     );
   }
 }

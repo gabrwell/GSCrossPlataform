@@ -33,7 +33,9 @@ class _IndicatorDetailScreenState extends State<IndicatorDetailScreen> {
     final definition = indicatorById(widget.indicatorId);
     final territory = context.watch<TerritoryController>();
     final thresholds = context.watch<SettingsController>().thresholds;
-    final alerts = context.watch<AlertsController>().forIndicator(definition.id);
+    final alerts = context.watch<AlertsController>().forIndicator(
+      definition.id,
+    );
     final series = territory.snapshot?.series[definition.id];
 
     return Scaffold(
@@ -50,7 +52,14 @@ class _IndicatorDetailScreenState extends State<IndicatorDetailScreen> {
                       onAction: territory.loadAll,
                     ),
             )
-          : _content(context, definition, series, thresholds, alerts, territory),
+          : _content(
+              context,
+              definition,
+              series,
+              thresholds,
+              alerts,
+              territory,
+            ),
     );
   }
 
@@ -75,8 +84,10 @@ class _IndicatorDetailScreenState extends State<IndicatorDetailScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(territory.selected.name, style: context.text.labelLarge),
-            Text(formatValue(latest.value, definition),
-                style: context.text.headlineSmall),
+            Text(
+              formatValue(latest.value, definition),
+              style: context.text.headlineSmall,
+            ),
             Text('Último dado em ${formatDay(latest.date)}'),
             const SizedBox(height: Gap.sm),
             Wrap(
@@ -127,9 +138,11 @@ class _IndicatorDetailScreenState extends State<IndicatorDetailScreen> {
           child: ListTile(
             leading: Icon(Icons.tune, color: context.colors.primary),
             title: Text('Limiar: ${formatValue(threshold, definition)}'),
-            subtitle: Text(definition.direction == RiskDirection.above
-                ? 'Alerta quando o valor passa deste limite.'
-                : 'Alerta quando o valor fica abaixo deste limite.'),
+            subtitle: Text(
+              definition.direction == RiskDirection.above
+                  ? 'Alerta quando o valor passa deste limite.'
+                  : 'Alerta quando o valor fica abaixo deste limite.',
+            ),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.pushNamed(
               Routes.thresholds,
@@ -171,11 +184,15 @@ class _ForecastCard extends StatelessWidget {
             const SizedBox(height: Gap.sm),
             Text('Método: ${forecast.method}.'),
             if (forecast.mape != null)
-              Text('Erro médio no teste com dados passados (MAPE): '
-                  '${formatPercent(forecast.mape!)}.'),
-            Text('Variação recente: '
-                '${formatNumber(forecast.slopePerDay, decimals: 2)} '
-                '${definition.unit} por dia.'),
+              Text(
+                'Erro médio no teste com dados passados (MAPE): '
+                '${formatPercent(forecast.mape!)}.',
+              ),
+            Text(
+              'Variação recente: '
+              '${formatNumber(forecast.slopePerDay, decimals: 2)} '
+              '${definition.unit} por dia.',
+            ),
             if (!forecast.isReliable) ...[
               const SizedBox(height: Gap.sm),
               StatusPill(

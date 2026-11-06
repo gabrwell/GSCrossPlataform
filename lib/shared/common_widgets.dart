@@ -55,8 +55,9 @@ class SectionTitle extends StatelessWidget {
               if (subtitle != null)
                 Text(
                   subtitle!,
-                  style: context.text.bodySmall
-                      ?.copyWith(color: context.colors.onSurfaceVariant),
+                  style: context.text.bodySmall?.copyWith(
+                    color: context.colors.onSurfaceVariant,
+                  ),
                 ),
             ],
           ),
@@ -114,7 +115,10 @@ class StatusPill extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: Gap.sm + 2, vertical: Gap.xs),
+      padding: const EdgeInsets.symmetric(
+        horizontal: Gap.sm + 2,
+        vertical: Gap.xs,
+      ),
       decoration: BoxDecoration(
         color: colors.background,
         borderRadius: BorderRadius.circular(99),
@@ -198,8 +202,10 @@ class ConfidenceMeter extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: Text('Confiança: ${level.label}',
-                    style: context.text.labelLarge),
+                child: Text(
+                  'Confiança: ${level.label}',
+                  style: context.text.labelLarge,
+                ),
               ),
               Text(formatPercent(score), style: context.text.labelLarge),
             ],
@@ -252,7 +258,9 @@ class HumanDecisionNotice extends StatelessWidget {
               child: Text(
                 'Os alertas apoiam, mas não substituem, a decisão humana. '
                 'Nenhuma ação é executada automaticamente pelo app.',
-                style: context.text.bodyMedium?.copyWith(color: pair.foreground),
+                style: context.text.bodyMedium?.copyWith(
+                  color: pair.foreground,
+                ),
               ),
             ),
           ],
@@ -278,7 +286,7 @@ class ConnectionBanner extends StatelessWidget {
     final message = snapshot.climateUnavailable
         ? 'Sem conexão e sem clima salvo. Os demais painéis seguem funcionando.'
         : 'Sem conexão. Clima salvo em '
-            '${fetched == null ? '-' : formatDateTime(fetched)}.';
+              '${fetched == null ? '-' : formatDateTime(fetched)}.';
     return Padding(
       padding: const EdgeInsets.only(bottom: Gap.sm),
       child: Semantics(
@@ -295,9 +303,12 @@ class ConnectionBanner extends StatelessWidget {
               Icon(Icons.cloud_off, color: pair.foreground),
               const SizedBox(width: Gap.sm),
               Expanded(
-                child: Text(message,
-                    style: context.text.bodyMedium
-                        ?.copyWith(color: pair.foreground)),
+                child: Text(
+                  message,
+                  style: context.text.bodyMedium?.copyWith(
+                    color: pair.foreground,
+                  ),
+                ),
               ),
             ],
           ),
@@ -382,8 +393,11 @@ class MessageView extends StatelessWidget {
         children: [
           Icon(icon, size: 48, color: context.colors.primary),
           const SizedBox(height: Gap.sm),
-          Text(title,
-              textAlign: TextAlign.center, style: context.text.titleMedium),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: context.text.titleMedium,
+          ),
           const SizedBox(height: Gap.xs),
           Text(message, textAlign: TextAlign.center),
           if (actionLabel != null) ...[
@@ -457,8 +471,9 @@ class StatTile extends StatelessWidget {
               const SizedBox(height: Gap.xs),
               Text(
                 note!,
-                style: context.text.bodySmall
-                    ?.copyWith(color: context.colors.onSurfaceVariant),
+                style: context.text.bodySmall?.copyWith(
+                  color: context.colors.onSurfaceVariant,
+                ),
               ),
             ],
           ],

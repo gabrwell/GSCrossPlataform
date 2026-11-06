@@ -6,7 +6,9 @@ class Validators {
 
   static final RegExp _email = RegExp(r'[\w.+-]+@[\w-]+\.[\w.-]+');
   static final RegExp _cpf = RegExp(r'\b\d{3}\.?\d{3}\.?\d{3}-?\d{2}\b');
-  static final RegExp _phone = RegExp(r'(\(?\d{2}\)?[\s-]?)?\b9?\d{4}[\s-]?\d{4}\b');
+  static final RegExp _phone = RegExp(
+    r'(\(?\d{2}\)?[\s-]?)?\b9?\d{4}[\s-]?\d{4}\b',
+  );
 
   /// Detecta dados pessoais em texto livre, para proteger quem relata.
   static bool containsPersonalData(String text) =>
@@ -50,8 +52,9 @@ class Validators {
   }
 
   static String _plain(double value) {
-    final text =
-        value == value.roundToDouble() ? value.toStringAsFixed(0) : '$value';
+    final text = value == value.roundToDouble()
+        ? value.toStringAsFixed(0)
+        : '$value';
     return text.replaceAll('.', ',');
   }
 }
